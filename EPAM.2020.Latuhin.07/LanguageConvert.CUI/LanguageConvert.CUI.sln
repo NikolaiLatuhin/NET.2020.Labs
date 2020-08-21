@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LanguageConvert.CUI", "LanguageConvert.CUI\LanguageConvert.CUI.csproj", "{2E13319A-7F2B-4F12-B641-E11B12664260}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LanguageConvert.Core", "LanguageConvert.Core\LanguageConvert.Core.csproj", "{502534A2-CD61-4BFF-8BC1-55476933EBCF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2E13319A-7F2B-4F12-B641-E11B12664260}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E13319A-7F2B-4F12-B641-E11B12664260}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E13319A-7F2B-4F12-B641-E11B12664260}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E13319A-7F2B-4F12-B641-E11B12664260}.Release|Any CPU.Build.0 = Release|Any CPU
+		{502534A2-CD61-4BFF-8BC1-55476933EBCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{502534A2-CD61-4BFF-8BC1-55476933EBCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{502534A2-CD61-4BFF-8BC1-55476933EBCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{502534A2-CD61-4BFF-8BC1-55476933EBCF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EB5C92C1-EA7F-4C81-9D6A-E89C1315C159}
+	EndGlobalSection
+EndGlobal
