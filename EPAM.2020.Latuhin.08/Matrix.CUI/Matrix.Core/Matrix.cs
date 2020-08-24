@@ -7,8 +7,8 @@ namespace Matrix.Core
     /// </summary>
     public class Matrix
     {
-        internal int Rows { get;}
-        internal int Columns { get;}
+        public int Rows { get;}
+        public int Columns { get;}
         private readonly double[,] _matrix;
 
         /// <summary>
@@ -18,6 +18,8 @@ namespace Matrix.Core
         /// <param name="columns">Количество столбцов</param>
         public Matrix(int rows, int columns)
         {
+            if(rows <= 0 || columns <= 0)
+                throw new ArgumentException("Rows and Columns must be greater than zero");
             Rows = rows;
             Columns = columns;
             _matrix = new double[rows, columns];
@@ -28,7 +30,7 @@ namespace Matrix.Core
         /// </summary>
         /// <param name="row">Строка матрицы</param>
         /// <param name="column">Столбец матрицы</param>
-        /// <returns></returns>
+        /// <returns>Возвращает значение элемента матрицы по индексу</returns>
         public double this[int row, int column]
         {
             get => _matrix[row, column];
@@ -36,11 +38,11 @@ namespace Matrix.Core
         }
 
         /// <summary>
-        /// Возвращает нулевую матрицу
+        /// Создает нулевую матрицу заданного размера
         /// </summary>
         /// <param name="rows">Строка матрицы</param>
         /// <param name="columns">Столбец матрицы</param>
-        /// <returns></returns>
+        /// <returns>Возращает нулевую матрицу </returns>
         public static Matrix GetEmpty(int rows, int columns)
         {
             var matrix = new Matrix(rows, columns);
@@ -137,14 +139,10 @@ namespace Matrix.Core
             return true;
         }
 
-        public void FillMatrix(double[,] inputDataDimension)
-        {
-            for (var i = 0; i < Rows; i++)
-                for (var j = 0; j < Columns; j++)
-                    _matrix[i, j] = inputDataDimension[i, j];
-        }
-
-
+        /// <summary>
+        /// Переопределяет метод для формирования строкого представления матрицы
+        /// </summary>
+        /// <returns>Возвращает строковое представление матрицы</returns>
         public override string ToString()
         {
             var resultString = "";
@@ -152,7 +150,7 @@ namespace Matrix.Core
             {
                 for (var j = 0; j < Columns; j++)
                 {
-                    resultString += String.Format("{0,5:0}", _matrix[i, j]) + " ";
+                    resultString += $"{_matrix[i, j]}" + " ";
                 }
                 resultString += "\r\n";
             }

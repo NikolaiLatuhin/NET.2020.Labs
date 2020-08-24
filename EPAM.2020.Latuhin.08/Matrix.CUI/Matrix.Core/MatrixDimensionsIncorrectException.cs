@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Matrix.Core
 {
     public class MatrixDimensionsIncorrectException : Exception
     {
-        public int Matrix1Rows { get; }
-        public int Matrix1Columns { get; }
-        public int Matrix2Rows { get; }
-        public int Matrix2Columns { get; }
+        public int FirstMatrixRows { get; }
+        public int FirstMatrixColumns { get; }
+        public int SecondMatrixRows { get; }
+        public int SecondMatrixColumns { get; }
         public string InformationDimension { get;}
 
         public MatrixDimensionsIncorrectException()
@@ -26,13 +22,13 @@ namespace Matrix.Core
         public MatrixDimensionsIncorrectException(string message, Matrix matrix1, Matrix matrix2)
             : base(message)
         {
-            Matrix1Rows = matrix1.Rows;
-            Matrix1Columns = matrix1.Columns;
-            Matrix2Rows = matrix2.Rows;
-            Matrix2Columns = matrix2.Columns;
+            FirstMatrixRows = matrix1.Rows;
+            FirstMatrixColumns = matrix1.Columns;
+            SecondMatrixRows = matrix2.Rows;
+            SecondMatrixColumns = matrix2.Columns;
 
-            InformationDimension = $"Dimensions first matrix [{Matrix1Rows}, {Matrix1Columns}]" +
-                                   $"\nDimensions second matrix [{Matrix2Rows}, {Matrix2Columns}]";
+            InformationDimension = $"Dimensions first matrix [{FirstMatrixRows}, {FirstMatrixColumns}]" +
+                                   $"\nDimensions second matrix [{SecondMatrixRows}, {SecondMatrixColumns}]";
         }
 
         public MatrixDimensionsIncorrectException(string message, Exception inner)

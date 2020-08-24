@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Matrix.Core.Tests
 {
@@ -16,12 +15,12 @@ namespace Matrix.Core.Tests
             double[,] dataMatrix1 = { { 5, 5, 7 }, { 4, 2, 10 }, {3, 5, 4} };
             double[,] dataMatrix2 = { { 4, 2, 1 }, { 6, 4, 7 }, {3, 5, 1} };
 
-            matrix1.FillMatrix(dataMatrix1);
-            matrix2.FillMatrix(dataMatrix2);
+            FillMatrix(matrix1, dataMatrix1);
+            FillMatrix(matrix2, dataMatrix2);
 
             var expected = new Matrix(3, 3);
             double[,] dataExpected = { { 9, 7, 8 }, { 10, 6, 17 }, { 6, 10, 5 } };
-            expected.FillMatrix(dataExpected);
+            FillMatrix(expected, dataExpected);
 
             // act
             var actual = matrix1 + matrix2;
@@ -40,12 +39,12 @@ namespace Matrix.Core.Tests
             double[,] dataMatrix1 = { { 5, 5, 7 }, { 4, 2, 10 }, { 3, 5, 4 } };
             double[,] dataMatrix2 = { { 4, 2, 1 }, { 6, 4, 7 }, { 3, 5, 1 } };
 
-            matrix1.FillMatrix(dataMatrix1);
-            matrix2.FillMatrix(dataMatrix2);
+            FillMatrix(matrix1, dataMatrix1);
+            FillMatrix(matrix2, dataMatrix2);
 
             var expected = new Matrix(3, 3);
             double[,] dataExpected = { { 1, 3, 6 }, { -2, -2, 3 }, { 0, 0, 3 } };
-            expected.FillMatrix(dataExpected);
+            FillMatrix(expected, dataExpected);
 
             // act
             var actual = matrix1 - matrix2;
@@ -64,12 +63,12 @@ namespace Matrix.Core.Tests
             double[,] dataMatrix1 = { { 5, 5, 7 }, { 4, 2, 10 }, { 3, 5, 4 } };
             double[,] dataMatrix2 = { { 4, 2, 1 }, { 6, 4, 7 }, { 3, 5, 1 } };
 
-            matrix1.FillMatrix(dataMatrix1);
-            matrix2.FillMatrix(dataMatrix2);
+            FillMatrix(matrix1, dataMatrix1);
+            FillMatrix(matrix2, dataMatrix2);
 
             var expected = new Matrix(3, 3);
             double[,] dataExpected = { { 71, 65, 47 }, { 58, 66, 28 }, { 54, 46, 42 } };
-            expected.FillMatrix(dataExpected);
+            FillMatrix(expected, dataExpected);
 
             // act
             var actual = matrix1 * matrix2;
@@ -89,8 +88,8 @@ namespace Matrix.Core.Tests
             double[,] dataMatrix1 = { { 5, 5, 7 }, { 4, 2, 10 }, { 3, 5, 4 } };
             double[,] dataMatrix2 = { { 4, 2, 1 }, { 6, 4, 7 } };
 
-            matrix1.FillMatrix(dataMatrix1);
-            matrix2.FillMatrix(dataMatrix2);
+            FillMatrix(matrix1, dataMatrix1);
+            FillMatrix(matrix2, dataMatrix2);
             _ = matrix1 + matrix2;
         }
 
@@ -105,8 +104,8 @@ namespace Matrix.Core.Tests
             double[,] dataMatrix1 = { { 5, 5, 7 }, { 4, 2, 10 }, { 3, 5, 4 } };
             double[,] dataMatrix2 = { { 4, 2, 1 }, { 6, 4, 7 }};
 
-            matrix1.FillMatrix(dataMatrix1);
-            matrix2.FillMatrix(dataMatrix2);
+            FillMatrix(matrix1, dataMatrix1);
+            FillMatrix(matrix2, dataMatrix2);
             _ = matrix1 - matrix2;
         }
 
@@ -121,9 +120,21 @@ namespace Matrix.Core.Tests
             double[,] dataMatrix1 = { { 5, 5, 7 }, { 4, 2, 10 }, { 3, 5, 4 } };
             double[,] dataMatrix2 = { { 4, 2 }, { 6, 4 }, { 3, 5 } };
 
-            matrix1.FillMatrix(dataMatrix1);
-            matrix2.FillMatrix(dataMatrix2);
+            FillMatrix(matrix1, dataMatrix1);
+            FillMatrix(matrix2, dataMatrix2);
+
             _ = matrix1 * matrix2;
+        }
+
+        public static void FillMatrix(Matrix matrix, double[,] dataMatrix)
+        {
+            for (var i = 0; i < matrix.Rows; i++)
+            {
+                for (var j = 0; j < matrix.Columns; j++)
+                {
+                    matrix[i, j] = dataMatrix[i, j];
+                }
+            }
         }
     }
 }
