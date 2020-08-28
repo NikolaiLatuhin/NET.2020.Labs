@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Threading;
 
 namespace Timer.Core
 {
+    /// <summary>
+    /// Класс для имитации часов с обратным отсчетом (таймер)
+    /// </summary>
     public class Timer
     {
         public string Name { get; set; }
@@ -24,11 +22,17 @@ namespace Timer.Core
             Name = name;
         }
 
-
-        public void Start(string message, int timeLeft)
+        public void RunTimer(int timeLeft)
         {
-            NotifyStartCountdown?.Invoke(this, new TimerEventArgs(message, timeLeft));
+            NotifyStartCountdown?.Invoke(this, new TimerEventArgs(Name, timeLeft));
 
+            CountdownTimer(timeLeft);
+
+            NotifyStopCountdown?.Invoke(this, new TimerEventArgs(Name, timeLeft));
+        }
+
+        private void CountdownTimer(int timeLeft)
+        {
             while (timeLeft > 0)
             {
                 // Передаем подписавшемуся на событие типу, сколько секунд осталось.
@@ -39,8 +43,6 @@ namespace Timer.Core
 
                 timeLeft -= 1;
             }
-
-            NotifyStopCountdown?.Invoke(this, new TimerEventArgs(message, timeLeft));
         }
     }
 }

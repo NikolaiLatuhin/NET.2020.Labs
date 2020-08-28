@@ -1,31 +1,42 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Timer.Core;
 
 namespace Timer.CUI
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            var timer = new Core.Timer("Test");
-            timer.NotifyStartCountdown += DisplayResult;
-            timer.NotifyCountdownLeft += DisplayElapsedTime;
+            Core.Timer.StartCountdownHandler startCountdown = StartTimeTask;
+            Action<string, string> timeComplete = StopTimeTask;
 
-            timer.Start("Message test", 5);
+            var timers = new ICutDownNotifier[]
+            {
+                new HandlesEventsUsingMethods("Чтение задания", startCountdown, timeComplete),
+                new HandlesEventsUsingAnonymousDelegates("Выполнение задания", startCountdown, timeComplete),
+                new HandlesEventsUsingLambda("Проверка задания перед отправкой", startCountdown, timeComplete),
+            };
+
+            Console.WriteLine("Enter the number of seconds for the timer");
+            var stringTimeLeft = Console.ReadLine();
+            int.TryParse(stringTimeLeft, out var timeLeft);
+
+            foreach (var timer in timers)
+            {
+                timer.Init();
+                timer.Run(timeLeft);
+            }
         }
 
-        private static void DisplayResult(object sender, TimerEventArgs e)
+        public static void StartTimeTask(object sender, TimerEventArgs e)
         {
-            Console.WriteLine(e.Message);
+            Console.WriteLine($"Start timer. Time for timer {e.TimeSeconds}. Event source {sender}");
         }
 
-        private static void DisplayElapsedTime(int elapsedSeconds)
+        public static void StopTimeTask(string nameTask, string leftTime)
         {
-            Console.WriteLine("Seconds last: " + elapsedSeconds);
+            Console.WriteLine($"Stop timer. Name of task {nameTask}. Time for timer {leftTime}");
         }
+        
     }
 }

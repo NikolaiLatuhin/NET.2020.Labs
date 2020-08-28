@@ -8,13 +8,15 @@ namespace Timer.Core
 {
     public class TimerEventArgs : EventArgs
     {
+        public string Name { get; }
+        public int TimeSeconds { get; }
         public string Message { get; }
-        public int Time { get; }
 
-        public TimerEventArgs(string message, int elapsedTimer)
+        public TimerEventArgs(string name, int timeSecondsLeft, string message = "")
         {
+            Name = name;
+            TimeSeconds = timeSecondsLeft;
             Message = message;
-            Time = elapsedTimer;
         }
     }
 }

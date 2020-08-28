@@ -1,51 +1,58 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Timer.Core
 {
-    class HandlesEventsUsingMethods : ICutDownNotifier
+    /// <summary>
+    /// Класс, обрабатывает события с помощью методов
+    /// </summary>
+    public class HandlesEventsUsingMethods : ICutDownNotifier
     {
-        public Timer timer;
+        public Timer Timer;
+        public Timer.StartCountdownHandler StartTimeTask;
+        public Action<string, string> TimeComplete;
 
-        public delegate void StartTimeTask(string nameTask, string timeAllotted);
-        public Action<string, string> timeComplete;
-
-        public HandlesEventsUsingMethods(string name)
+        public HandlesEventsUsingMethods(string name, Timer.StartCountdownHandler startTimeTask, Action<string,string> timeComplete)
         {
-            timer = new Timer(name);
+            Timer = new Timer(name);
+            StartTimeTask = startTimeTask;
+            TimeComplete = timeComplete;
         }
 
+        /// <summary>
+        /// Подписывается на событие «таймера»
+        /// </summary>
         public void Init()
         {
-            timer.NotifyStartCountdown += StartCountdown;
-            timer.NotifyCountdownLeft += CountdownLeft;
-            timer.NotifyStopCountdown += StopCountdown;
+            Timer.NotifyStartCountdown += StartCountdown;
+            Timer.NotifyCountdownLeft += CountdownLeft;
+            Timer.NotifyStopCountdown += StopCountdown;
         }
 
-        public void Run()
+        /// <summary>
+        /// Запускает «таймер»
+        /// </summary>
+        /// <param name="timeSecondsLeft">Количество секунд для запуска таймера</param>
+        public void Run(int timeSecondsLeft)
         {
-
+            Timer.RunTimer(timeSecondsLeft);
         }
 
         public void StartCountdown(object sender, TimerEventArgs e)
         {
-
-
-            Console.WriteLine($"Name of timer {timer.Name}");
+            Console.WriteLine($"Name of timer {Timer.Name}");
+            StartTimeTask(sender, e);
         }
 
         public void CountdownLeft(int timeLeft)
         {
-            Console.WriteLine($"Name of timer {timer.Name}");
+            Console.WriteLine($"Name of timer {Timer.Name}");
             Console.WriteLine($"Left seconds {timeLeft}");
         }
 
         public void StopCountdown(object sender, TimerEventArgs e)
         {
-            Console.WriteLine($"Name of timer {timer.Name}");
+            Console.WriteLine($"Name of timer {Timer.Name}");
+            TimeComplete(Timer.Name, e.TimeSeconds.ToString());
         }
     }
 }
