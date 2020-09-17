@@ -18,6 +18,9 @@ namespace TextEditor.GUI
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Обработчик при открытии файла
+        /// </summary>
         private void Load_Click(object sender, RoutedEventArgs e)
         {
             var ofd = new OpenFileDialog {Filter = "Text Files (*.txt)|*.txt|All files (*.*)|*.*"};
@@ -54,6 +57,9 @@ namespace TextEditor.GUI
 
         }
 
+        /// <summary>
+        /// Обработчик при сохранении файла
+        /// </summary>
         private void Save_Click(object sender, RoutedEventArgs e)
         {
             var document = new TextRange(DocBox.Document.ContentStart, DocBox.Document.ContentEnd);
@@ -77,6 +83,11 @@ namespace TextEditor.GUI
             }
         }
 
+        /// <summary>
+        /// Обработчик при "Сохранении как" файла
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SaveAs_Click(object sender, RoutedEventArgs e)
         {
             var sfd = new SaveFileDialog
