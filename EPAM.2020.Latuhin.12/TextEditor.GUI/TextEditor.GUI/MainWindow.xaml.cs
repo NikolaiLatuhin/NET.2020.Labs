@@ -140,6 +140,9 @@ namespace TextEditor.GUI
             }
         }
 
+        /// <summary>
+        /// Пишет в названии имя открытого файла
+        /// </summary>
         private void TitleChange()
         {
             const string baseTitle = "Текстовый редактор - ";
