@@ -11,7 +11,16 @@ namespace TextEditor.GUI
     /// </summary>
     public partial class MainWindow
     {
+        /// <summary>
+        /// Переменная для хранения пути к файлу при первом его открытии.
+        /// Используется для быстрого сохранения изменений в этот же файл.
+        /// </summary>
         private string _pathToFile;
+
+        /// <summary>
+        /// Флаг, для проверки открытия файла.
+        /// </summary>
+        private bool _isFileOpen;
 
         public MainWindow()
         {
@@ -19,7 +28,7 @@ namespace TextEditor.GUI
         }
 
         /// <summary>
-        /// Обработчик при открытии файла
+        /// Обработчик при открытии файла.
         /// </summary>
         private void Load_Click(object sender, RoutedEventArgs e)
         {
@@ -48,6 +57,9 @@ namespace TextEditor.GUI
                             break;
                     }
                 }
+                // В названии программы отображается имя открытого файла.
+                TitleChange();
+                _isFileOpen = true;
             }
 
             catch
@@ -58,10 +70,18 @@ namespace TextEditor.GUI
         }
 
         /// <summary>
-        /// Обработчик при сохранении файла
+        /// Обработчик при сохранении файла.
         /// </summary>
         private void Save_Click(object sender, RoutedEventArgs e)
         {
+            // Если пользователь не открыл какой-либо файл, и нажимает сохранить,
+            // то вызвать метод для создания файла через "Сохранить как".
+            if (!_isFileOpen)
+            {
+                SaveAs_Click(new object(), new RoutedEventArgs());
+                return;
+            }
+
             var document = new TextRange(DocBox.Document.ContentStart, DocBox.Document.ContentEnd);
 
             using (var fs = File.Create(_pathToFile))
@@ -84,10 +104,8 @@ namespace TextEditor.GUI
         }
 
         /// <summary>
-        /// Обработчик при "Сохранении как" файла
+        /// Обработчик при "Сохранении как" файла.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void SaveAs_Click(object sender, RoutedEventArgs e)
         {
             var sfd = new SaveFileDialog
@@ -99,6 +117,7 @@ namespace TextEditor.GUI
             if (sfd.ShowDialog() != true) return;
 
             var document = new TextRange(DocBox.Document.ContentStart, DocBox.Document.ContentEnd);
+
             using (var fs = File.Create(sfd.FileName))
             {
                 switch (Path.GetExtension(sfd.FileName).ToLower())
@@ -114,8 +133,19 @@ namespace TextEditor.GUI
                         break;
                 }
 
-                MessageBox.Show("Файл сохранен");
+                _pathToFile = sfd.FileName;
+                // После "Сохранить как" файл создан, и является открытым в текстовом редакторе
+                _isFileOpen = true;
+                TitleChange();
             }
+        }
+
+        private void TitleChange()
+        {
+            const string baseTitle = "Текстовый редактор - ";
+            var fileName = Path.GetFileName(_pathToFile);
+
+            Title = baseTitle + fileName;
         }
     }
 }

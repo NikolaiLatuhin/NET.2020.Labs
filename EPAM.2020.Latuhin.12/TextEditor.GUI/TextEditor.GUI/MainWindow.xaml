@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TextEditor.GUI"
         mc:Ignorable="d"
-        Title="Текстовый редактор" Height="400" Width="500">
+        Title="Текстовый редактор " Height="400" Width="500">
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="Height" Value="25" />
@@ -23,13 +23,13 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <RichTextBox x:Name="DocBox" Margin="0,57,0,0" Grid.ColumnSpan="2" />
-        <Button ToolTip="Открыть файл" Height="Auto" Margin="10,10,256.547,319" Width="Auto" Click="Load_Click">
+        <Button x:Name="Open" ToolTip="Открыть файл" Height="Auto" Margin="10,10,256.547,319" Width="Auto" Click="Load_Click">
             <Image Source="C:\Users\Admin\source\repos\TextEditor.GUI\TextEditor.GUI\icons\folder.png" Height="30" Width="30" />
         </Button>
-        <Button ToolTip="Сохранить" Height="Auto" Margin="55,10,211,319" Width="Auto" Click="Save_Click">
+        <Button x:Name="Save" ToolTip="Сохранить" Height="Auto" Margin="55,10,211,319" Width="Auto" Click="Save_Click">
             <Image Source="C:\Users\Admin\source\repos\TextEditor.GUI\TextEditor.GUI\icons\save.png" Height="30" Width="30" />
         </Button>
-        <Button ToolTip="Сохранить как" Height="Auto" Margin="101,10,165,319" Width="Auto" Click="SaveAs_Click" RenderTransformOrigin="1.278,0.693">
+        <Button x:Name="SaveAs" ToolTip="Сохранить как" Height="Auto" Margin="101,10,165,319" Width="Auto" Click="SaveAs_Click" RenderTransformOrigin="1.278,0.693">
             <Image Source="C:\Users\Admin\source\repos\TextEditor.GUI\TextEditor.GUI\icons\saveAs.png" Height="30" Width="30" />
         </Button>
     </Grid>
