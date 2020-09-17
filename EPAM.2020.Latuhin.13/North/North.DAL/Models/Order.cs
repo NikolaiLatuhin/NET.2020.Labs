@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace North.DAL.Models
 {
-    public class Orders
+    public class Order
     {
-        public Orders()
+        public Order()
         {
             OrderDetails = new HashSet<OrderDetails>();
         }
