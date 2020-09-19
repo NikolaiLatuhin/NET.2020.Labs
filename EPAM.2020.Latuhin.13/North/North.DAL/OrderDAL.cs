@@ -69,8 +69,8 @@ namespace North.DAL
                         ShipName = (string)dataReader["ShipName"],
                         ShipAddress = (string)dataReader["ShipAddress"],
                         ShipCity = (string)dataReader["ShipCity"],
-                        ShipRegion = (string)dataReader["ShipRegion"].ToString(),
-                        ShipPostalCode = (string)dataReader["ShipPostalCode"].ToString(),
+                        ShipRegion = dataReader["ShipRegion"].ToString(),
+                        ShipPostalCode = dataReader["ShipPostalCode"].ToString(),
                         Status = tempStatus
                     });
                 }
@@ -207,5 +207,35 @@ namespace North.DAL
                 CloseConnection();
             }
         }
+
+        public void DeleteOrder(int orderId)
+        {
+            OpenConnection(_conn);
+            // Сначала удаляем запись из таблицы Order Details, поскольку в ней содержится внешний ключ ссылающийся на таблицу Orders
+            // После этого приступаем к удалению записи из таблицы Orders
+            // OrderDate IS NULL - Статус "Новый"
+            // ShippedDate IS NULL - Статус "В работе"
+            var sql = $"DELETE from [dbo].[Order Details] where OrderID = @OrderID;" +
+                      $"Delete from Orders where OrderID = @OrderID AND (OrderDate IS NULL OR ShippedDate IS NULL)";
+
+            using (var command = new SqlCommand(sql, _connect))
+            {
+                {
+                    try
+                    {
+                        command.Parameters.AddWithValue("@OrderID", orderId);
+                        command.ExecuteNonQuery();
+                    }
+
+                    catch (SqlException ex)
+                    {
+                        var error = new Exception("Sorry!", ex);
+                        throw error;
+                    }
+                }
+            }
+            CloseConnection();
+        }
     }
 }
+

@@ -23,6 +23,9 @@ namespace North.CUI
                 ShipRegion = string.Empty, ShipPostalCode = "44087", ShipCountry = "Germany", Status = Order.StatusOrder.Completed
             } );
             Console.WriteLine("Успешно добавлена запись");
+
+            dal.DeleteOrder(11019);
+            Console.WriteLine("Запись удалена");
         }
     }
 }
