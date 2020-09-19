@@ -1,5 +1,6 @@
 ﻿using North.DAL;
 using System;
+using North.DAL.Models;
 
 namespace North.CUI
 {
@@ -15,6 +16,13 @@ namespace North.CUI
                 Console.WriteLine($" {itm.OrderId} \t {itm.CustomerId} \t{itm.EmployeeId} \t{itm.ShipName} \t{itm.ShipAddress} \t{itm.Status}");
             }
 
+            dal.InsertOrder(new Order
+            {
+                CustomerId = "TOMSP", EmployeeId = 3, OrderDate = DateTime.Now, RequiredDate = DateTime.Now, ShippedDate = DateTime.Now,
+                ShipVia = 2, Freight = (decimal?) 1.4300, ShipName = "Toms Spezialitäten", ShipAddress = "Luisenstr. 48", ShipCity = "Münster",
+                ShipRegion = string.Empty, ShipPostalCode = "44087", ShipCountry = "Germany", Status = Order.StatusOrder.Completed
+            } );
+            Console.WriteLine("Успешно добавлена запись");
         }
     }
 }
