@@ -236,6 +236,28 @@ namespace North.DAL
             }
             CloseConnection();
         }
+
+        public void UpdateOrderStatusToInWork(int orderId, DateTime orderDate)
+        {
+            OpenConnection(_conn);
+            var sql = $"Update Orders Set OrderDate = '{orderDate}' WHERE OrderID = {orderId}";
+            using (var command = new SqlCommand(sql, _connect))
+            {
+                command.ExecuteNonQuery();
+            }
+            CloseConnection();
+        }
+
+        public void UpdateOrderStatusToCompleted(int orderId, DateTime shippedDate)
+        {
+            OpenConnection(_conn);
+            var sql = $"Update Orders Set ShippedDate = '{shippedDate}' WHERE OrderID = {orderId}";
+            using (var command = new SqlCommand(sql, _connect))
+            {
+                command.ExecuteNonQuery();
+            }
+            CloseConnection();
+        }
     }
 }
 
