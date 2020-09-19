@@ -270,6 +270,33 @@ namespace North.DAL
             CloseConnection();
         }
 
+        public void UpdateOrder(int orderId, string customerId, int? employeeId, DateTime RequiredDate, int? shipVia, decimal? freight,
+            string shipName, string shipAddress, string shipCity, string shipRegion, string shipPostalCode, string shipCountry)
+        {
+            OpenConnection(_conn);
+            var sql = 
+                      $"Update Orders Set " +
+                      $"CustomerId = '{customerId}'," +
+                      $"EmployeeId = '{employeeId}'," +
+                      $"RequiredDate = '{RequiredDate}'," +
+                      $"ShipVia = '{shipVia}'," +
+                      $"Freight = '{freight}'," +
+                      $"ShipName = '{shipName}'," +
+                      $"ShipAddress = '{shipAddress}'," +
+                      $"ShipCity = '{shipCity}'," +
+                      $"ShipRegion = '{shipRegion}'," +
+                      $"ShipPostalCode = '{shipPostalCode}'," +
+                      $"ShipCountry = '{shipCountry}'" +
+                      $"WHERE OrderID = {orderId}" +
+                      $"AND OrderDate IS NULL";
+
+            using (var command = new SqlCommand(sql, _connect))
+            {
+                command.ExecuteNonQuery();
+            }
+            CloseConnection();
+        }
+
         public void UpdateOrderStatusToInWork(int orderId, DateTime orderDate)
         {
             OpenConnection(_conn);

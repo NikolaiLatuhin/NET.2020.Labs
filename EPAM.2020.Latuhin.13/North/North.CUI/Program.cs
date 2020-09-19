@@ -28,6 +28,10 @@ namespace North.CUI
             Console.WriteLine("Запись удалена");
 
             dal.GetAllOrdersWithDetails();
+
+            dal.UpdateOrder(10285, "WILMK", 1, DateTime.Now, 1, (decimal)1000, "Test Ship",
+                "Russia, Samara Region, Samara", "Samara", "Samara Region", "445445", "Russia" );
+            Console.WriteLine("Успешно внесены изменения в запись");
         }
     }
 }
