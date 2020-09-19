@@ -26,6 +26,8 @@ namespace North.CUI
 
             dal.DeleteOrder(11019);
             Console.WriteLine("Запись удалена");
+
+            dal.GetAllOrdersWithDetails();
         }
     }
 }

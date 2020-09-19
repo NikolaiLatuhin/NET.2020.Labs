@@ -79,6 +79,39 @@ namespace North.DAL
             return orders;
         }
 
+        public void GetAllOrdersWithDetails()
+        {
+            //Выбраны некоторые поля, чтобы помещались при отображении в консоли
+            const string sql = "SELECT t1.OrderID, CustomerID, EmployeeID, OrderDate, RequiredDate, ShippedDate, ShipName, ShipCountry, t2.ProductID, ProductName, t3.UnitPrice  " +
+                               "FROM " +
+                               "   Orders t1 " +
+                               "INNER JOIN " +
+                               "   [dbo].[Order Details] t2 ON t2.OrderID = t1.OrderID " +
+                               "INNER JOIN " +
+                               "   Products t3 ON t2.ProductID = t3.ProductID";
+
+            OpenConnection(_conn);
+            var adapter = new SqlDataAdapter(sql, _connect);
+            var ds = new DataSet();
+            adapter.Fill(ds);
+            
+            var dt = ds.Tables[0];
+
+            
+            foreach (DataColumn column in dt.Columns)
+                Console.Write("\t{0}", column.ColumnName);
+            Console.WriteLine();
+            // перебор всех строк таблицы
+            foreach (DataRow row in dt.Rows)
+            {
+                // получаем все ячейки строки
+                var cells = row.ItemArray;
+                foreach (var cell in cells)
+                    Console.Write("\t{0}", cell);
+                Console.WriteLine();
+            }
+        }
+
         public void InsertOrder(Order order)
         {
             OpenConnection(_conn);
