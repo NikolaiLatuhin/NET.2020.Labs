@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using North.DAL.Models;
+using System.Configuration;
 
 namespace North.DAL
 {
@@ -10,8 +11,7 @@ namespace North.DAL
     {
         private SqlConnection _connect = null;
 
-        private string _conn =
-            @"Data Source=DESKTOP-UNI17SV\SQLEXPRESS01;Initial Catalog=Northwind;Integrated Security=True";
+        private string _conn = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
         public void OpenConnection(string connectionString)
         {
